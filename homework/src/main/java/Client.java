@@ -19,9 +19,9 @@ public class Client {
         this.age = age;
         isRegular = _isRegular;
         email = new String( _email);
-        name = _name;
-        surname = _surname;
-        phone = _phone;
+        name = new String(_name);
+        surname = new String(_surname);
+        phone = new String(_phone);
         id = counter++;
     }
 
