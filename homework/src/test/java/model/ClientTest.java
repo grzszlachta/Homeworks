@@ -1,6 +1,21 @@
-public class Clients {
+package model;
 
-    public static void main(String[] args) {
+import org.junit.Test;
+
+public class ClientTest {
+
+    @Test
+    public void testDefaultConstructor() {
+        new Client();
+    }
+
+    @Test
+    public void testNotRegularClient() {
+        new Client(33, "a@bbs.com", "Gary", "Smith", "");
+    }
+
+    @Test
+    public void testEquals() {
         Client client1 = new Client(29, false, "a@email.com",
                 "Ivan", "Ivanov", "+4812345678");
         System.out.println("client1 = " + client1);

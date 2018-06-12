@@ -1,27 +1,25 @@
-public class Client {
+package model;
 
-    static int counter = 0;
+public class Client extends Person {
 
-    boolean isRegular;
-    int age;
-    String email;
-    String name;
-    String surname;
-    String phone;
-    int id;
+    private static int counter = 0;
+
+    private boolean isRegular = false;
+    private int id;
 
     // default constructor
     public Client() {
 
     }
 
+    public Client(int age, String _email, String _name, String _surname, String _phone) {
+        super(age, _email, _name, _surname, _phone);
+
+    }
+
     public Client(int age, boolean _isRegular, String _email, String _name, String _surname, String _phone) {
-        this.age = age;
+        this(age, _email, _name, _surname, _phone);
         isRegular = _isRegular;
-        email = new String( _email);
-        name = new String(_name);
-        surname = new String(_surname);
-        phone = new String(_phone);
         id = counter++;
     }
 
@@ -41,7 +39,7 @@ public class Client {
 
     @java.lang.Override
     public java.lang.String toString() {
-        return "Client{" +
+        return "model.Client{" +
                 "isRegular=" + isRegular +
                 ", age=" + age +
                 ", email='" + email + '\'' +
@@ -52,6 +50,7 @@ public class Client {
                 '}';
     }
 
+    @Override
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
