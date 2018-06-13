@@ -1,5 +1,6 @@
 package model;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class ClientTest {
@@ -38,4 +39,18 @@ public class ClientTest {
         System.out.println("client3 is equals client4 = " + client3.equals(client4));
         System.out.println("client4 is equals null = " + client4.equals(null));
     }
+
+    @Test
+    public void testReflexiveEquals() {
+        Client client = new Client(29, false, "a@email.com",
+                "Ivan", "Ivanov", "+4812345678");
+        Assert.assertTrue(client.equals(client));
+    }
+
+    @Test
+    public void testEqualsNull() {
+        Client client = new Client();
+        Assert.assertFalse(client.equals(null));
+    }
+
 }
