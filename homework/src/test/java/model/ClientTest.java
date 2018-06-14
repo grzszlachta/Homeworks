@@ -53,4 +53,47 @@ public class ClientTest {
         Assert.assertFalse(client.equals(null));
     }
 
+    @Test
+    public void testSymmetric() {
+        Client clientX = new Client(29, false, "a@email.com",
+                "Ivan", "Ivanov", "+4812345678");
+        Client clientY = new Client(29, false, "a@email.com",
+                "Ivan", "Ivanov", "+4812345678");
+        Assert.assertTrue(clientX.equals(clientY));
+        Assert.assertTrue(clientY.equals(clientX));
+
+        Client clientZ = new Client(17, true, "c@gmail.com",
+                "John", "Smith", "+482345678");
+        Assert.assertFalse(clientX.equals(clientZ));
+        Assert.assertFalse(clientZ.equals(clientX));
+    }
+
+    @Test
+    public void testTransitive() {
+        Client clientX = new Client(29, false, "a@email.com",
+                "Ivan", "Ivanov", "+4812345678");
+        Client clientY = new Client(29, false, "a@email.com",
+                "Ivan", "Ivanov", "+4812345678");
+        Client clientZ = new Client(29, false, "a@email.com",
+                "Ivan", "Ivanov", "+4812345678");
+        Assert.assertTrue(clientX.equals(clientY));
+        Assert.assertTrue(clientY.equals(clientZ));
+        Assert.assertTrue(clientX.equals(clientZ));
+    }
+
+    @Test
+    public void testConsistent() {
+        Client clientX = new Client(29, false, "a@email.com",
+                "Ivan", "Ivanov", "+4812345678");
+        Client clientY = new Client(29, false, "a@email.com",
+                "Ivan", "Ivanov", "+4812345678");
+        Client clientZ = new Client(35, true, "b@outlook.com",
+                "Jan", "Kowalsky", "+4898765432");
+        for (int i = 0; i < 5; i++) {
+            Assert.assertTrue(clientX.equals(clientY));
+            Assert.assertFalse(clientX.equals(clientZ));
+            Assert.assertFalse(clientY.equals(clientZ));
+        }
+    }
+
 }
