@@ -14,7 +14,6 @@ public class Client extends Person {
 
     public Client(int age, String _email, String _name, String _surname, String _phone) {
         super(age, _email, _name, _surname, _phone);
-
     }
 
     public Client(int age, boolean _isRegular, String _email, String _name, String _surname, String _phone) {
@@ -54,7 +53,7 @@ public class Client extends Person {
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
-//        if (!super.equals(object)) return false;
+        if (!super.equals(object)) return false;
         Client client = (Client) object;
         return email.equals(client.email) &&
                 phone.equals(client.phone) &&

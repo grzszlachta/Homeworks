@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Person {
     private static int counter = 0;
 
@@ -26,4 +28,27 @@ public class Person {
        return 0;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return age == person.age &&
+                Objects.equals(email, person.email) &&
+                Objects.equals(name, person.name) &&
+                Objects.equals(surname, person.surname) &&
+                Objects.equals(phone, person.phone);
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "age=" + age +
+                ", email='" + email + '\'' +
+                ", name=`'" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", phone='" + phone + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }
