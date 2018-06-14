@@ -24,10 +24,6 @@ public class Person {
         System.out.println("done");
     }
 
-    public int getDiscount() {
-       return 0;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
