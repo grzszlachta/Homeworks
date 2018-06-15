@@ -2,7 +2,7 @@ package model;
 
 import java.util.Objects;
 
-public class Person {
+public abstract class Person {
     private static int counter = 0;
 
     protected int age;
@@ -21,8 +21,10 @@ public class Person {
         surname = new String(_surname);
         phone = new String(_phone);
         id = counter++;
-        System.out.println("done");
+        this.toString();
     }
+
+    public abstract int getDiscount();
 
     @Override
     public boolean equals(Object o) {

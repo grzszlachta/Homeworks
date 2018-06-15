@@ -1,6 +1,6 @@
 package service;
 
-import model.Client;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class ClientServiceTest {
@@ -8,7 +8,8 @@ public class ClientServiceTest {
     @Test
     public void testAddClient() {
         ClientService service = new ClientService();
-        /*service.addClient(new Client(29, false, "a@email.com",
-                "Ivan", "Ivanov", "+4812345678");*/
+        service.addClient(29, "a@email.com",
+                    "Ivan", "Ivanov", "+4812345678");
+        Assert.assertEquals(10, service.getStorageSize());
     }
 }

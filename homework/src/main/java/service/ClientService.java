@@ -1,6 +1,7 @@
 package service;
 
 import model.Client;
+import model.Employee;
 import model.Person;
 
 public class ClientService {
@@ -12,10 +13,20 @@ public class ClientService {
         createPerson(new Client(age, email, name, surname, phone));
     }
 
+    public void addEmployee(int age, String email, String name, String surname, String phone) {
+        createPerson(new Employee(age, email, name, surname, phone));
+    }
+
+    public int getStorageSize() {
+        return people.length;
+    }
+
+    public Person[] getClients() {
+        return people;
+    }
+
     private void createPerson(Person person) {
-        if (counter < people.length - 1) {
-            people[counter++] = person;
-        } else {
+        if (counter >= people.length) {
             Person[] newPeople = new Person[people.length * 2];
             for (int index = 0; index < people.length; index++) {
                 newPeople[index] = people[index];

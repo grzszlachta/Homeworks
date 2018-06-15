@@ -1,6 +1,6 @@
 package model;
 
-public class Employee extends Person implements Discountable {
+public class Employee extends Person {
 
     public Employee() {}
 
