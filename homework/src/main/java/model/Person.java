@@ -49,6 +49,14 @@ public abstract class Person {
         this.address = address;
     }
 
+    public String getEmail() {
+        return new String(email);
+    }
+
+    public int getAge() {
+        return age;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
