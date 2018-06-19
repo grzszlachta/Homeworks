@@ -85,8 +85,14 @@ public class ClientTest {
     public void testConsistent() {
         Client clientX = new Client(29, false, "a@email.com",
                 "Ivan", "Ivanov", "+4812345678");
+        Address addressX = new Address("Cracow", "Szlak", "65", 101, "10001");
+        addressX.setCity("Warsaw");
+        clientX.setAddress(addressX);
         Client clientY = new Client(29, false, "a@email.com",
                 "Ivan", "Ivanov", "+4812345678");
+        Address addressY = new Address();
+        addressY.setCity("Cracow");
+        clientY.setAddress(addressY);
         Client clientZ = new Client(35, true, "b@outlook.com",
                 "Jan", "Kowalsky", "+4898765432");
         for (int i = 0; i < 5; i++) {

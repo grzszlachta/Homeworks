@@ -11,6 +11,7 @@ public abstract class Person {
     protected String surname;
     protected String phone;
     private int id;
+    private Address address;
 
     public Person() {}
 
@@ -26,6 +27,8 @@ public abstract class Person {
 
     public abstract int getDiscount();
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -36,6 +39,14 @@ public abstract class Person {
                 Objects.equals(name, person.name) &&
                 Objects.equals(surname, person.surname) &&
                 Objects.equals(phone, person.phone);
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override
