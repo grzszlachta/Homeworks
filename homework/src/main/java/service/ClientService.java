@@ -13,6 +13,10 @@ public class ClientService {
         createPerson(new Client(age, email, name, surname, phone));
     }
 
+    public void addClient(int age, boolean isRegular, String email, String name, String surname, String phone) {
+        createPerson(new Client(age, isRegular, email, name, surname, phone));
+    }
+
     public void addEmployee(int age, String email, String name, String surname, String phone) {
         createPerson(new Employee(age, email, name, surname, phone));
     }
@@ -33,6 +37,7 @@ public class ClientService {
             }
             people = newPeople;
         }
+        System.out.println(person.toString());
         people[counter++] = person;
     }
 
