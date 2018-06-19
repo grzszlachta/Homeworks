@@ -33,6 +33,7 @@ public class ClientService {
             }
             people = newPeople;
         }
+        System.out.println(person.toString());
         people[counter++] = person;
     }
 
