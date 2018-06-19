@@ -54,7 +54,7 @@ public class ClientServiceTest {
     private void generateRandomClient(ClientService service) {
         int maybePhoneNumber = random.nextInt();
         int phoneNumber = maybePhoneNumber > 0 ?  maybePhoneNumber : (maybePhoneNumber * -1) ;
-        service.addClient(random.nextInt(83) + 1,
+        service.addClient(random.nextInt(83) + 16,
                 UUID.randomUUID().toString().replaceAll("-", "") + "@" +
                         UUID.randomUUID().toString().replaceAll("-", "") + ".com",
                 UUID.randomUUID().toString().replaceAll("-", ""),

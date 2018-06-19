@@ -1,6 +1,7 @@
 ## HomeWork 9
 
-1. On template of ClientServiceTest#testAddClient write a test to verify expanding storage of ClientService.
+1. On template of ClientServiceTest#testAddClient write a test to verify expanding
+storage of ClientService.
 Use service.getClients and service.getStorageSize to prove it.
 
 2. On the basis of ClientTest and EmployeeTest set of clients and employees, write a test in ClientServiceTest to count average discount:
