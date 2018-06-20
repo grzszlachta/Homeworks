@@ -29,6 +29,17 @@ public class ClientService {
         return people;
     }
 
+    public Person findPersonByEmail(String email) {
+        Person result = null;
+        for (Person person : people) {
+            if (person != null && email.equals(person.getEmail())) {
+                result = person;
+                break;
+            }
+        }
+        return result;
+    }
+
     private void createPerson(Person person) {
         if (counter >= people.length) {
             Person[] newPeople = new Person[people.length * 2];

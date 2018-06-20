@@ -51,10 +51,23 @@ public class ClientServiceTest {
         System.out.println("Average discount = " + (float)sum / 5);
     }
 
+    @Test
+    public void testGetPersonByEmail() {
+        ClientService service = new ClientService();
+        Assert.assertNull(service.findPersonByEmail("a@bc.com"));
+        service.addClient(29, false,"a@email.com", "Ivan", "Ivanov", "+4812345678");
+        service.addClient(35, true, "b@outlook.com", "Jan", "Kowalsky", "+4898765432");
+        Person person = service.findPersonByEmail("a@email.com");
+        Assert.assertNotNull(person);
+        Assert.assertEquals(29, person.getAge());
+        System.out.println("person found: " + person);
+
+    }
+
     private void generateRandomClient(ClientService service) {
         int maybePhoneNumber = random.nextInt();
         int phoneNumber = maybePhoneNumber > 0 ?  maybePhoneNumber : (maybePhoneNumber * -1) ;
-        service.addClient(random.nextInt(83) + 1,
+        service.addClient(random.nextInt(83) + 16,
                 UUID.randomUUID().toString().replaceAll("-", "") + "@" +
                         UUID.randomUUID().toString().replaceAll("-", "") + ".com",
                 UUID.randomUUID().toString().replaceAll("-", ""),

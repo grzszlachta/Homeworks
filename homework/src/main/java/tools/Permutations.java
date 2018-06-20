@@ -16,7 +16,6 @@ public class Permutations {
             result.append(first + second);
             result.append(" ");
             result.append(second + first);
-            return result.toString();
         }
         if (input.length() > 2) {
             String first = input.substring(0, 1);
