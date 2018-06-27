@@ -1,5 +1,6 @@
 package service;
 
+import model.Address;
 import model.Client;
 import model.Employee;
 import model.Person;
@@ -50,6 +51,17 @@ public class ClientService {
         }
         System.out.println(person.toString());
         people[counter++] = person;
+    }
+
+    public Person updatePerson(String email, int age, String name, String surname, String phone) {
+        Person toUpdate = findPersonByEmail(email);
+        if (toUpdate != null) {
+            toUpdate.setAge(age);
+            toUpdate.setName(name);
+            toUpdate.setSurname(surname);
+            toUpdate.setPhone(phone);
+        }
+        return toUpdate;
     }
 
 
