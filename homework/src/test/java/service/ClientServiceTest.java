@@ -1,5 +1,6 @@
 package service;
 
+import model.Client;
 import model.Person;
 import org.junit.Assert;
 import org.junit.Test;
@@ -64,10 +65,30 @@ public class ClientServiceTest {
 
     }
 
+    @Test
+    public void testUpdate() {
+        ClientService service = new ClientService();
+        Client person = getRandomClient();
+        Assert.assertNull(service.updatePerson("a@bc.com", person.getAge(), person.getName(), person.getSurname(), person.getPhone()));
+        service.addClient(person.getAge(), person.getEmail(), person.getName(), person.getSurname(), person.getPhone());
+        Assert.assertEquals(person, service.updatePerson(person.getEmail(), person.getAge(), person.getName(), person.getSurname(), person.getPhone()));
+    }
+
     private void generateRandomClient(ClientService service) {
         int maybePhoneNumber = random.nextInt();
         int phoneNumber = maybePhoneNumber > 0 ?  maybePhoneNumber : (maybePhoneNumber * -1) ;
         service.addClient(random.nextInt(83) + 16,
+                UUID.randomUUID().toString().replaceAll("-", "") + "@" +
+                        UUID.randomUUID().toString().replaceAll("-", "") + ".com",
+                UUID.randomUUID().toString().replaceAll("-", ""),
+                UUID.randomUUID().toString().replaceAll("-", ""),
+                "+" + phoneNumber);
+    }
+
+    private Client getRandomClient() {
+        int maybePhoneNumber = random.nextInt();
+        int phoneNumber = maybePhoneNumber > 0 ?  maybePhoneNumber : (maybePhoneNumber * -1) ;
+        return new Client(random.nextInt(83) + 16,
                 UUID.randomUUID().toString().replaceAll("-", "") + "@" +
                         UUID.randomUUID().toString().replaceAll("-", "") + ".com",
                 UUID.randomUUID().toString().replaceAll("-", ""),
