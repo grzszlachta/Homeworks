@@ -38,15 +38,17 @@ public class Client extends Person {
 
     @java.lang.Override
     public java.lang.String toString() {
-        return "model.Client{" +
+        String personToString = super.toString();
+        String clientToString = "model.Client{" +
                 "isRegular=" + isRegular +
-                ", age=" + age +
-                ", email='" + email + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", phone='" + phone + '\'' +
+//                ", age=" + age +
+//                ", email='" + email + '\'' +
+//                ", name='" + name + '\'' +
+//                ", surname='" + surname + '\'' +
+//                ", phone='" + phone + '\'' +
                 ", id=" + id +
                 '}';
+        return clientToString + " " + personToString;
     }
 
     @Override

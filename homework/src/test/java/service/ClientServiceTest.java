@@ -105,4 +105,21 @@ public class ClientServiceTest {
         }
         return counter;
     }
+
+    @Test
+    public void testGetClient() {
+        ClientService service = new ClientService();
+        Client randomClient = getRandomClient();
+        service.addClient(randomClient);
+        Assert.assertEquals(randomClient, service.getClient(randomClient.getEmail()));
+    }
+
+    @Test
+    public void testDeleteClient() {
+        ClientService service = new ClientService();
+        Client randomClient = getRandomClient();
+        service.addClient(randomClient);
+        boolean goodResult = service.deleteClient(randomClient.getEmail());
+        Assert.assertTrue(goodResult);
+    }
 }
