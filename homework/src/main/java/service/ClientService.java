@@ -18,6 +18,10 @@ public class ClientService {
         createPerson(new Client(age, isRegular, email, name, surname, phone));
     }
 
+    public void addClient(Client client) {
+        createPerson(client);
+    }
+
     public void addEmployee(int age, String email, String name, String surname, String phone) {
         createPerson(new Employee(age, email, name, surname, phone));
     }
@@ -64,5 +68,18 @@ public class ClientService {
         return toUpdate;
     }
 
+    public Client getClient(String email) {
+        return (Client)findPersonByEmail(email);
+    }
 
+    public boolean deleteClient(String email) {
+        Person person = findPersonByEmail(email);
+        for (int i = 0; i < people.length; i++) {
+            if (person != null && person.getEmail().equals(email)) {
+                people[i] = null;
+                return true;
+            }
+        }
+        return (person != null);
+    }
 }
