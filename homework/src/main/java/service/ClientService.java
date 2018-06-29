@@ -26,6 +26,10 @@ public class ClientService {
         createPerson(new Employee(age, email, name, surname, phone));
     }
 
+    public void addEmployee(Employee employee) {
+        createPerson(employee);
+    }
+
     public int getStorageSize() {
         return people.length;
     }

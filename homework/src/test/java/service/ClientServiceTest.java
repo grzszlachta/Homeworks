@@ -1,6 +1,7 @@
 package service;
 
 import model.Client;
+import model.Employee;
 import model.Person;
 import org.junit.Assert;
 import org.junit.Test;
@@ -96,6 +97,17 @@ public class ClientServiceTest {
                 "+" + phoneNumber);
     }
 
+    private Employee getRandomEmployee() {
+        int maybePhoneNumber = random.nextInt();
+        int phoneNumber = maybePhoneNumber > 0 ?  maybePhoneNumber : (maybePhoneNumber * -1) ;
+        return new Employee(random.nextInt(83) + 16,
+                UUID.randomUUID().toString().replaceAll("-", "") + "@" +
+                        UUID.randomUUID().toString().replaceAll("-", "") + ".com",
+                UUID.randomUUID().toString().replaceAll("-", ""),
+                UUID.randomUUID().toString().replaceAll("-", ""),
+                "+" + phoneNumber);
+    }
+
     private int countPersons(Person[] people) {
         int counter = 0;
         for (Person person : people) {
@@ -107,6 +119,27 @@ public class ClientServiceTest {
     }
 
     @Test
+    public void testGetClientEmpty() {
+        ClientService service = new ClientService();
+        Assert.assertNull(service.getClient("a@a.bc"));
+    }
+
+    @Test
+    public void testGetClientAbsent() {
+        ClientService service = new ClientService();
+        Client randomClient = getRandomClient();
+        Assert.assertNull(service.getClient(randomClient.getEmail()));
+    }
+
+    @Test
+    public void testGetClientNotExisted() {
+        ClientService service = new ClientService();
+        Client randomClient = getRandomClient();
+        service.addClient(randomClient);
+        Assert.assertNull(service.getClient("a@abc.com"));
+    }
+
+    @Test
     public void testGetClient() {
         ClientService service = new ClientService();
         Client randomClient = getRandomClient();
@@ -115,9 +148,58 @@ public class ClientServiceTest {
     }
 
     @Test
+    public void testGetClientWithEmployee() {
+        ClientService service = new ClientService();
+        Employee randomEmployee = getRandomEmployee();
+        service.addEmployee(randomEmployee);
+        Assert.assertEquals(randomEmployee, service.getClient(randomEmployee.getEmail()));
+    }
+
+    @Test
+    public void testGetRegularClient() {
+        ClientService service = new ClientService();
+        Client randomClient = getRandomClient();
+        randomClient.setRegular(true);
+        service.addClient(randomClient);
+        Assert.assertEquals(randomClient, service.getClient(randomClient.getEmail()));
+    }
+
+    @Test
+    public void testDeleteClientEmpty() {
+        ClientService service = new ClientService();
+        Assert.assertFalse(service.deleteClient("a@abc.com"));
+    }
+
+    @Test
+    public void testDeleteClientNotExisted() {
+        ClientService service = new ClientService();
+        Client randomClient = getRandomClient();
+        service.addClient(randomClient);
+        Assert.assertFalse(service.deleteClient("a@abc.com"));
+    }
+
+    @Test
     public void testDeleteClient() {
         ClientService service = new ClientService();
         Client randomClient = getRandomClient();
+        service.addClient(randomClient);
+        boolean goodResult = service.deleteClient(randomClient.getEmail());
+        Assert.assertTrue(goodResult);
+    }
+
+    @Test
+    public void testDeleteClientAsEmployee() {
+        ClientService service = new ClientService();
+        Employee randomEmployee = getRandomEmployee();
+        service.addEmployee(randomEmployee);
+        Assert.assertTrue(service.deleteClient(randomEmployee.getEmail()));
+    }
+
+    @Test
+    public void testDeleteRegularClient() {
+        ClientService service = new ClientService();
+        Client randomClient = getRandomClient();
+        randomClient.setRegular(true);
         service.addClient(randomClient);
         boolean goodResult = service.deleteClient(randomClient.getEmail());
         Assert.assertTrue(goodResult);
