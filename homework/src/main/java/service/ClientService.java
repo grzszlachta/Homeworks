@@ -5,7 +5,9 @@ import model.Client;
 import model.Employee;
 import model.Person;
 
-public class ClientService {
+import java.util.Comparator;
+
+public class ClientService implements Comparator<Person> {
 
     private Person[] people = new Person[10];
     private int counter = 0;
@@ -85,5 +87,10 @@ public class ClientService {
             }
         }
         return (person != null);
+    }
+
+    @Override
+    public int compare(Person client1, Person client2) {
+        return client1.getAge() - client2.getAge();
     }
 }

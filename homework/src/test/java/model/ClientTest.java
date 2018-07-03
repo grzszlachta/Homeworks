@@ -108,4 +108,10 @@ public class ClientTest {
         Client c = new Client(33, "a@bbs.com", "Gary", "Smith", "+452093084324");
         System.out.println("client = " + c.toString());
     }
+
+    @Test
+    public void testSetter() {
+        Client c = new Client(33, "a@bbs.com", "Gary", "Smith", "+452093084324");
+        c.setAge(34);
+    }
 }
