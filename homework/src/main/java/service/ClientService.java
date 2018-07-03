@@ -36,7 +36,7 @@ public class ClientService implements Comparator<Person> {
         return people.length;
     }
 
-    public Person[] getClients() {
+    public Person[] getPeople() {
         return people;
     }
 
