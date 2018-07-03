@@ -1,13 +1,15 @@
 package service;
 
-import model.Client;
-import model.Employee;
-import model.Person;
-import org.junit.Assert;
-import org.junit.Test;
+        import model.Client;
+        import model.Employee;
+        import model.Person;
+        import org.junit.Assert;
+        import org.junit.Test;
 
-import java.util.Random;
-import java.util.UUID;
+        import java.util.Arrays;
+        import java.util.Collections;
+        import java.util.Random;
+        import java.util.UUID;
 
 public class ClientServiceTest {
 
@@ -203,5 +205,41 @@ public class ClientServiceTest {
         service.addClient(randomClient);
         boolean goodResult = service.deleteClient(randomClient.getEmail());
         Assert.assertTrue(goodResult);
+    }
+
+    @Test
+    public void testSortStorageComparator() {
+        ClientService service = new ClientService();
+        for (int i = 0; i < 10; i++) {
+            service.addClient(getRandomClient());
+        }
+        for (Person person : service.getClients()) {
+            System.out.println(person.getSurname() + ": " + person.getAge());
+        }
+        Arrays.sort(service.getClients(), service);
+        System.out.println("After sort:");
+        for (Person person : service.getClients()) {
+            System.out.println(person.getSurname() + ": " + person.getAge());
+        }
+    }
+
+    @Test
+    public void testSortStorageComparable() {
+        ClientService service = new ClientService();
+        for (int i = 0; i < 10; i++) {
+            service.addClient(getRandomClient());
+        }
+        Client[] clients = new Client[service.getStorageSize()];
+        for (int i = 0; i < service.getStorageSize(); i++) {
+            clients[i] = (Client)service.getClients()[i];
+        }
+        Arrays.sort(clients);
+        for (Client client : clients) {
+            System.out.println(client.getSurname() + ": " + client.getAge());
+        }
+        System.out.println("After sort:");
+        for (Client client : clients) {
+            System.out.println(client.getSurname() + ": " + client.getAge());
+        }
     }
 }

@@ -2,7 +2,7 @@ package model;
 
 import java.util.Objects;
 
-public abstract class Person {
+public abstract class Person implements Discountable {
     private static int counter = 0;
 
     protected int age;
@@ -25,7 +25,7 @@ public abstract class Person {
         this.toString();
     }
 
-    public abstract int getDiscount();
+//    public abstract int getDiscount();
 
 
 
