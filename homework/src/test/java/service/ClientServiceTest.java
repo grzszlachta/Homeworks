@@ -20,7 +20,7 @@ public class ClientServiceTest {
         ClientService service = new ClientService();
         service.addClient(29,  "a@email.com", "Ivan", "Ivanov", "+4812345678");
         Assert.assertEquals(10, service.getStorageSize());
-        Assert.assertEquals(1, countPersons(service.getClients()));
+        Assert.assertEquals(1, countPersons(service.getPeople()));
     }
 
     @Test
@@ -29,11 +29,11 @@ public class ClientServiceTest {
         int counter = 0;
         for (int index = 0; index < 20; index++) {
             generateRandomClient(service);
-            Assert.assertEquals(++counter, countPersons(service.getClients()));
+            Assert.assertEquals(++counter, countPersons(service.getPeople()));
         }
         Assert.assertEquals(20, service.getStorageSize());
         generateRandomClient(service);
-        Assert.assertEquals(++counter, countPersons(service.getClients()));
+        Assert.assertEquals(++counter, countPersons(service.getPeople()));
         Assert.assertEquals(40, service.getStorageSize());
     }
 
@@ -46,7 +46,7 @@ public class ClientServiceTest {
         service.addClient(17, true, "c@gmail.com", "John", "Smith", "+482345678");
         service.addEmployee(29, "a@email.com", "Ivan", "Ivanov", "+4812345678");
         int sum = 0;
-        for (Person person : service.getClients()) {
+        for (Person person : service.getPeople()) {
             if (person != null) {
                 System.out.println("person = " + person);
                 sum += person.getDiscount();
@@ -213,12 +213,12 @@ public class ClientServiceTest {
         for (int i = 0; i < 10; i++) {
             service.addClient(getRandomClient());
         }
-        for (Person person : service.getClients()) {
+        for (Person person : service.getPeople()) {
             System.out.println(person.getSurname() + ": " + person.getAge());
         }
-        Arrays.sort(service.getClients(), service);
+        Arrays.sort(service.getPeople(), service);
         System.out.println("After sort:");
-        for (Person person : service.getClients()) {
+        for (Person person : service.getPeople()) {
             System.out.println(person.getSurname() + ": " + person.getAge());
         }
     }
@@ -231,7 +231,7 @@ public class ClientServiceTest {
         }
         Client[] clients = new Client[service.getStorageSize()];
         for (int i = 0; i < service.getStorageSize(); i++) {
-            clients[i] = (Client)service.getClients()[i];
+            clients[i] = (Client)service.getPeople()[i];
         }
         Arrays.sort(clients);
         for (Client client : clients) {
@@ -240,6 +240,42 @@ public class ClientServiceTest {
         System.out.println("After sort:");
         for (Client client : clients) {
             System.out.println(client.getSurname() + ": " + client.getAge());
+        }
+    }
+
+    @Test
+    public void testSortEmployeeComparator() {
+        ClientService service = new ClientService();
+        for (int i = 0; i < 10; i++) {
+            service.addEmployee(getRandomEmployee());
+        }
+        for (Person person : service.getPeople()) {
+            System.out.println(person.getSurname() + ": " + person.getAge());
+        }
+        Arrays.sort(service.getPeople(), Collections.reverseOrder());
+        System.out.println("After sort:");
+        for (Person person : service.getPeople()) {
+            System.out.println(person.getSurname() + ": " + person.getAge());
+        }
+    }
+
+    @Test
+    public void testEmployeeSortComparable() {
+        ClientService service = new ClientService();
+        for (int i = 0; i < 10; i++) {
+            service.addEmployee(getRandomEmployee());
+        }
+        Employee[] staff = new Employee[service.getStorageSize()];
+        for (int i = 0; i < service.getStorageSize(); i++) {
+            staff[i] = (Employee)service.getPeople()[i];
+        }
+        Arrays.sort(staff);
+        for (Employee employee : staff) {
+            System.out.println(employee.getSurname() + ": " + employee.getAge());
+        }
+        System.out.println("After sort:");
+        for (Employee employee : staff) {
+            System.out.println(employee.getSurname() + ": " + employee.getAge());
         }
     }
 }

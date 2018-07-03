@@ -25,10 +25,6 @@ public abstract class Person implements Discountable {
         this.toString();
     }
 
-//    public abstract int getDiscount();
-
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
