@@ -6,10 +6,7 @@ package service;
         import org.junit.Assert;
         import org.junit.Test;
 
-        import java.util.Arrays;
-        import java.util.Collections;
-        import java.util.Random;
-        import java.util.UUID;
+        import java.util.*;
 
 public class ClientServiceTest {
 
@@ -269,7 +266,16 @@ public class ClientServiceTest {
         for (int i = 0; i < service.getStorageSize(); i++) {
             staff[i] = (Employee)service.getPeople()[i];
         }
-        Arrays.sort(staff);
+        try {
+            Arrays.sort(staff);
+        } catch (Exception ex) {
+            Arrays.sort(staff, new Comparator<Employee>() {
+                @Override
+                public int compare(Employee o1, Employee o2) {
+                    return o1.getSurname().compareTo(o2.getSurname());
+                }
+            });
+        }
         for (Employee employee : staff) {
             System.out.println(employee.getSurname() + ": " + employee.getAge());
         }
