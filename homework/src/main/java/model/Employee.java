@@ -1,6 +1,6 @@
 package model;
 
-public class Employee extends Person {
+public class Employee extends Person implements Comparable<Employee> {
 
     public Employee() {}
 
@@ -17,5 +17,10 @@ public class Employee extends Person {
                 ", surname='" + surname + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Employee o) {
+        return this.surname.compareTo(o.surname);
     }
 }
