@@ -147,7 +147,15 @@ public class ClientServiceTest {
     }
 
     @Test
-    public void testGetClientWithEmployee() {
+    public void testGetClientWithEmployeeToEatException() {
+        ClientService service = new ClientService();
+        Employee randomEmployee = getRandomEmployee();
+        service.addEmployee(randomEmployee);
+        Assert.assertEquals(randomEmployee, service.getClient(randomEmployee.getEmail()));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testGetClientWithEmployeeToFixTest() {
         ClientService service = new ClientService();
         Employee randomEmployee = getRandomEmployee();
         service.addEmployee(randomEmployee);
