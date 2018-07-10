@@ -21,6 +21,16 @@ public class ClientServiceTest {
     }
 
     @Test
+    public void testMultipleAdd() {
+        ClientService service = new ClientService();
+        int counter = 0;
+        for (int i = 0; i < 10; i++) {
+            service.addClient(getRandomClient());
+            Assert.assertEquals(counter, service.getStorageSize());
+        }
+    }
+
+    @Test
     public void testExpandClientStorage() {
         ClientService service = new ClientService();
         int counter = 0;
