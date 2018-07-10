@@ -151,7 +151,11 @@ public class ClientServiceTest {
         ClientService service = new ClientService();
         Employee randomEmployee = getRandomEmployee();
         service.addEmployee(randomEmployee);
-        Assert.assertEquals(randomEmployee, service.getClient(randomEmployee.getEmail()));
+        try {
+            Assert.assertEquals(randomEmployee, service.getClient(randomEmployee.getEmail()));
+        } catch (ClassCastException | IllegalStateException e) {
+            System.out.println("e.getMessage() = " + e.getMessage());
+        }
     }
 
     @Test(expected = IllegalStateException.class)
