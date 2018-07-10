@@ -1,13 +1,12 @@
 package service;
 
-import model.Client;
-import model.Employee;
-import model.Person;
-import org.junit.Assert;
-import org.junit.Test;
+        import model.Client;
+        import model.Employee;
+        import model.Person;
+        import org.junit.Assert;
+        import org.junit.Test;
 
-import java.util.Random;
-import java.util.UUID;
+        import java.util.*;
 
 public class ClientServiceTest {
 
@@ -18,7 +17,7 @@ public class ClientServiceTest {
         ClientService service = new ClientService();
         service.addClient(29,  "a@email.com", "Ivan", "Ivanov", "+4812345678");
         Assert.assertEquals(10, service.getStorageSize());
-        Assert.assertEquals(1, countPersons(service.getClients()));
+        Assert.assertEquals(1, countPersons(service.getPeople()));
     }
 
     @Test
@@ -27,11 +26,11 @@ public class ClientServiceTest {
         int counter = 0;
         for (int index = 0; index < 20; index++) {
             generateRandomClient(service);
-            Assert.assertEquals(++counter, countPersons(service.getClients()));
+            Assert.assertEquals(++counter, countPersons(service.getPeople()));
         }
         Assert.assertEquals(20, service.getStorageSize());
         generateRandomClient(service);
-        Assert.assertEquals(++counter, countPersons(service.getClients()));
+        Assert.assertEquals(++counter, countPersons(service.getPeople()));
         Assert.assertEquals(40, service.getStorageSize());
     }
 
@@ -44,7 +43,7 @@ public class ClientServiceTest {
         service.addClient(17, true, "c@gmail.com", "John", "Smith", "+482345678");
         service.addEmployee(29, "a@email.com", "Ivan", "Ivanov", "+4812345678");
         int sum = 0;
-        for (Person person : service.getClients()) {
+        for (Person person : service.getPeople()) {
             if (person != null) {
                 System.out.println("person = " + person);
                 sum += person.getDiscount();
@@ -148,7 +147,15 @@ public class ClientServiceTest {
     }
 
     @Test
-    public void testGetClientWithEmployee() {
+    public void testGetClientWithEmployeeToEatException() {
+        ClientService service = new ClientService();
+        Employee randomEmployee = getRandomEmployee();
+        service.addEmployee(randomEmployee);
+        Assert.assertEquals(randomEmployee, service.getClient(randomEmployee.getEmail()));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testGetClientWithEmployeeToFixTest() {
         ClientService service = new ClientService();
         Employee randomEmployee = getRandomEmployee();
         service.addEmployee(randomEmployee);
@@ -203,5 +210,86 @@ public class ClientServiceTest {
         service.addClient(randomClient);
         boolean goodResult = service.deleteClient(randomClient.getEmail());
         Assert.assertTrue(goodResult);
+    }
+
+    @Test
+    public void testSortStorageComparator() {
+        ClientService service = new ClientService();
+        for (int i = 0; i < 10; i++) {
+            service.addClient(getRandomClient());
+        }
+        for (Person person : service.getPeople()) {
+            System.out.println(person.getSurname() + ": " + person.getAge());
+        }
+        Arrays.sort(service.getPeople(), service);
+        System.out.println("After sort:");
+        for (Person person : service.getPeople()) {
+            System.out.println(person.getSurname() + ": " + person.getAge());
+        }
+    }
+
+    @Test
+    public void testSortStorageComparable() {
+        ClientService service = new ClientService();
+        for (int i = 0; i < 10; i++) {
+            service.addClient(getRandomClient());
+        }
+        Client[] clients = new Client[service.getStorageSize()];
+        for (int i = 0; i < service.getStorageSize(); i++) {
+            clients[i] = (Client)service.getPeople()[i];
+        }
+        Arrays.sort(clients);
+        for (Client client : clients) {
+            System.out.println(client.getSurname() + ": " + client.getAge());
+        }
+        System.out.println("After sort:");
+        for (Client client : clients) {
+            System.out.println(client.getSurname() + ": " + client.getAge());
+        }
+    }
+
+    @Test
+    public void testSortEmployeeComparator() {
+        ClientService service = new ClientService();
+        for (int i = 0; i < 10; i++) {
+            service.addEmployee(getRandomEmployee());
+        }
+        for (Person person : service.getPeople()) {
+            System.out.println(person.getSurname() + ": " + person.getAge());
+        }
+        Arrays.sort(service.getPeople(), Collections.reverseOrder());
+        System.out.println("After sort:");
+        for (Person person : service.getPeople()) {
+            System.out.println(person.getSurname() + ": " + person.getAge());
+        }
+    }
+
+    @Test
+    public void testEmployeeSortComparable() {
+        ClientService service = new ClientService();
+        for (int i = 0; i < 10; i++) {
+            service.addEmployee(getRandomEmployee());
+        }
+        Employee[] staff = new Employee[service.getStorageSize()];
+        for (int i = 0; i < service.getStorageSize(); i++) {
+            staff[i] = (Employee)service.getPeople()[i];
+        }
+        try {
+            Arrays.sort(staff);
+        } catch (Exception ex) {
+            Arrays.sort(staff, new Comparator<Employee>() {
+                @Override
+                public int compare(Employee o1, Employee o2) {
+                    return o1.getSurname().compareTo(o2.getSurname());
+                }
+            });
+        }
+        for (Employee employee : staff) {
+            System.out.println(employee.getSurname() + ": " + employee.getAge());
+        }
+        System.out.println("After sort:");
+        for (Employee employee : staff) {
+            System.out.println(employee.getSurname() + ": " + employee.getAge());
+        }
     }
 }

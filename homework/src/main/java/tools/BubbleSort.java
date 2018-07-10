@@ -1,14 +1,15 @@
 package tools;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class BubbleSort {
 
     public static void main(String[] args) {
-        int[] inputA = {99, 70, 50, 40, 20, 13, 12, 7, 6, 4, 3, 1};
+        Integer[] inputA = {99, 70, 50, 40, 20, 13, 12, 7, 6, 4, 3, 1};
         int[] input = {1, 2, 3, 12, 4, 5, 7, 9, 10};
         sort(input);
-        Arrays.sort(inputA);
+        Arrays.sort(inputA, Collections.reverseOrder());
         System.out.println("inputA = " + Arrays.toString(inputA));
 
     }

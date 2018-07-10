@@ -1,11 +1,12 @@
 package model;
 
-public class Client extends Person {
+public class Client extends Person implements Comparable<Client> {
 
     private static int counter = 0;
 
     private boolean isRegular = false;
     private int id;
+    private boolean regular;
 
     // default constructor
     public Client() {
@@ -63,5 +64,19 @@ public class Client extends Person {
                 age == client.age &&
                 name.equals(client.name) &&
                 surname.equals(client.surname);
+    }
+
+    public void setRegular(boolean regular) {
+        this.regular = regular;
+    }
+
+    public void setAge(int _age) {
+        System.out.println("old age = " + getAge() + "; new age = " + _age);
+        super.setAge(_age);
+    }
+
+    @Override
+    public int compareTo(Client other) {
+        return this.getSurname().compareTo(other.getSurname());
     }
 }

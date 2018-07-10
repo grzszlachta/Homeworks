@@ -2,7 +2,7 @@ package model;
 
 import java.util.Objects;
 
-public abstract class Person {
+public abstract class Person implements Discountable {
     private static int counter = 0;
 
     protected int age;
@@ -24,10 +24,6 @@ public abstract class Person {
         id = counter++;
         this.toString();
     }
-
-    public abstract int getDiscount();
-
-
 
     @Override
     public boolean equals(Object o) {
