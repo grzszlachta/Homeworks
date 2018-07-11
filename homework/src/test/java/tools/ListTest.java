@@ -25,7 +25,7 @@ public class ListTest {
     public void testSplitToList() {
         List<String> input = Arrays.asList("Imagine", "Imagine", "all", "all", "the", "the", "people", "people", "" +
                 "living", "living", "life", "life", "in", "in", "peace,", "peace,", "you", "you");
-        List<String> expected = Arrays.asList("Imagine", "the", "living", "in", "you");
+        List<String> expected = Arrays.asList("Imagine", "all", "the", "people", "living", "life", "in", "peace,", "you");
         Assert.assertArrayEquals(expected.toArray(), cleanup(input).toArray());
     }
 
