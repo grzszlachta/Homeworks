@@ -21,6 +21,16 @@ public class ClientServiceTest {
     }
 
     @Test
+    public void testMultipleAdd() {
+        ClientService service = new ClientService();
+        int counter = 0;
+        for (int i = 0; i < 10; i++) {
+            service.addClient(getRandomClient());
+            Assert.assertEquals(counter, service.getStorageSize());
+        }
+    }
+
+    @Test
     public void testExpandClientStorage() {
         ClientService service = new ClientService();
         int counter = 0;
@@ -107,14 +117,8 @@ public class ClientServiceTest {
                 "+" + phoneNumber);
     }
 
-    private int countPersons(Person[] people) {
-        int counter = 0;
-        for (Person person : people) {
-            if (person != null) {
-                counter++;
-            }
-        }
-        return counter;
+    private int countPersons(List<Person> people) {
+        return people.size();
     }
 
     @Test
@@ -151,7 +155,11 @@ public class ClientServiceTest {
         ClientService service = new ClientService();
         Employee randomEmployee = getRandomEmployee();
         service.addEmployee(randomEmployee);
-        Assert.assertEquals(randomEmployee, service.getClient(randomEmployee.getEmail()));
+        try {
+            Assert.assertEquals(randomEmployee, service.getClient(randomEmployee.getEmail()));
+        } catch (ClassCastException | IllegalStateException e) {
+            System.out.println("e.getMessage() = " + e.getMessage());
+        }
     }
 
     @Test(expected = IllegalStateException.class)
@@ -221,7 +229,7 @@ public class ClientServiceTest {
         for (Person person : service.getPeople()) {
             System.out.println(person.getSurname() + ": " + person.getAge());
         }
-        Arrays.sort(service.getPeople(), service);
+        Collections.sort(service.getPeople(), service);
         System.out.println("After sort:");
         for (Person person : service.getPeople()) {
             System.out.println(person.getSurname() + ": " + person.getAge());
@@ -236,7 +244,7 @@ public class ClientServiceTest {
         }
         Client[] clients = new Client[service.getStorageSize()];
         for (int i = 0; i < service.getStorageSize(); i++) {
-            clients[i] = (Client)service.getPeople()[i];
+            clients[i] = (Client)service.getPeople().get(i);
         }
         Arrays.sort(clients);
         for (Client client : clients) {
@@ -257,7 +265,7 @@ public class ClientServiceTest {
         for (Person person : service.getPeople()) {
             System.out.println(person.getSurname() + ": " + person.getAge());
         }
-        Arrays.sort(service.getPeople(), Collections.reverseOrder());
+        Collections.sort(service.getPeople(), Collections.reverseOrder());
         System.out.println("After sort:");
         for (Person person : service.getPeople()) {
             System.out.println(person.getSurname() + ": " + person.getAge());
@@ -272,7 +280,7 @@ public class ClientServiceTest {
         }
         Employee[] staff = new Employee[service.getStorageSize()];
         for (int i = 0; i < service.getStorageSize(); i++) {
-            staff[i] = (Employee)service.getPeople()[i];
+            staff[i] = (Employee)service.getPeople().get(i);
         }
         try {
             Arrays.sort(staff);

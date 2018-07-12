@@ -1,15 +1,16 @@
 package service;
 
-import model.Address;
 import model.Client;
 import model.Employee;
 import model.Person;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 public class ClientService implements Comparator<Person> {
 
-    private Person[] people = new Person[10];
+    private List<Person> people = new ArrayList<>();
     private int counter = 0;
 
     public void addClient(int age, String email, String name, String surname, String phone) {
@@ -33,10 +34,10 @@ public class ClientService implements Comparator<Person> {
     }
 
     public int getStorageSize() {
-        return people.length;
+        return people.size();
     }
 
-    public Person[] getPeople() {
+    public List<Person> getPeople() {
         return people;
     }
 
@@ -52,15 +53,7 @@ public class ClientService implements Comparator<Person> {
     }
 
     private void createPerson(Person person) {
-        if (counter >= people.length) {
-            Person[] newPeople = new Person[people.length * 2];
-            for (int index = 0; index < people.length; index++) {
-                newPeople[index] = people[index];
-            }
-            people = newPeople;
-        }
-        System.out.println(person.toString());
-        people[counter++] = person;
+        people.add(person);
     }
 
     public Person updatePerson(String email, int age, String name, String surname, String phone) {
@@ -74,19 +67,17 @@ public class ClientService implements Comparator<Person> {
         return toUpdate;
     }
 
-    public Client getClient(String email) {
-        return (Client)findPersonByEmail(email);
+    public Client getClient(String email) throws IllegalStateException {
+        Person personByEmail = findPersonByEmail(email);
+        if (personByEmail instanceof Client) {
+            return (Client) personByEmail;
+        }
+        throw new IllegalStateException("It is not Client!");
     }
 
     public boolean deleteClient(String email) {
         Person person = findPersonByEmail(email);
-        for (int i = 0; i < people.length; i++) {
-            if (person != null && person.getEmail().equals(email)) {
-                people[i] = null;
-                return true;
-            }
-        }
-        return (person != null);
+        return people.remove(person);
     }
 
     @Override
