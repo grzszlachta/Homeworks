@@ -69,6 +69,9 @@ public class ClientService implements Comparator<Person> {
 
     public Client getClient(String email) throws IllegalStateException {
         Person personByEmail = findPersonByEmail(email);
+        if (personByEmail == null) {
+            return null;
+        }
         if (personByEmail instanceof Client) {
             return (Client) personByEmail;
         }

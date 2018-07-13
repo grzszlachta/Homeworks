@@ -1,12 +1,12 @@
 package service;
 
-        import model.Client;
-        import model.Employee;
-        import model.Person;
-        import org.junit.Assert;
-        import org.junit.Test;
+import model.Client;
+import model.Employee;
+import model.Person;
+import org.junit.Assert;
+import org.junit.Test;
 
-        import java.util.*;
+import java.util.*;
 
 public class ClientServiceTest {
 
@@ -15,8 +15,8 @@ public class ClientServiceTest {
     @Test
     public void testAddClient() {
         ClientService service = new ClientService();
-        service.addClient(29,  "a@email.com", "Ivan", "Ivanov", "+4812345678");
-        Assert.assertEquals(10, service.getStorageSize());
+        service.addClient(29, "a@email.com", "Ivan", "Ivanov", "+4812345678");
+        Assert.assertEquals(1, service.getStorageSize());
         Assert.assertEquals(1, countPersons(service.getPeople()));
     }
 
@@ -26,6 +26,7 @@ public class ClientServiceTest {
         int counter = 0;
         for (int i = 0; i < 10; i++) {
             service.addClient(getRandomClient());
+            counter = counter + 1;
             Assert.assertEquals(counter, service.getStorageSize());
         }
     }
@@ -41,13 +42,13 @@ public class ClientServiceTest {
         Assert.assertEquals(20, service.getStorageSize());
         generateRandomClient(service);
         Assert.assertEquals(++counter, countPersons(service.getPeople()));
-        Assert.assertEquals(40, service.getStorageSize());
+        Assert.assertEquals(21, service.getStorageSize());
     }
 
     @Test
     public void testAverageDiscount() {
         ClientService service = new ClientService();
-        service.addClient(29, false,"a@email.com", "Ivan", "Ivanov", "+4812345678");
+        service.addClient(29, false, "a@email.com", "Ivan", "Ivanov", "+4812345678");
         service.addClient(35, true, "b@outlook.com", "Jan", "Kowalsky", "+4898765432");
         service.addClient(17, true, "c@gmail.com", "John", "Smith", "+482345678");
         service.addClient(17, true, "c@gmail.com", "John", "Smith", "+482345678");
@@ -59,14 +60,14 @@ public class ClientServiceTest {
                 sum += person.getDiscount();
             }
         }
-        System.out.println("Average discount = " + (float)sum / 5);
+        System.out.println("Average discount = " + (float) sum / 5);
     }
 
     @Test
     public void testGetPersonByEmail() {
         ClientService service = new ClientService();
         Assert.assertNull(service.findPersonByEmail("a@bc.com"));
-        service.addClient(29, false,"a@email.com", "Ivan", "Ivanov", "+4812345678");
+        service.addClient(29, false, "a@email.com", "Ivan", "Ivanov", "+4812345678");
         service.addClient(35, true, "b@outlook.com", "Jan", "Kowalsky", "+4898765432");
         Person person = service.findPersonByEmail("a@email.com");
         Assert.assertNotNull(person);
@@ -86,7 +87,7 @@ public class ClientServiceTest {
 
     private void generateRandomClient(ClientService service) {
         int maybePhoneNumber = random.nextInt();
-        int phoneNumber = maybePhoneNumber > 0 ?  maybePhoneNumber : (maybePhoneNumber * -1) ;
+        int phoneNumber = maybePhoneNumber > 0 ? maybePhoneNumber : (maybePhoneNumber * -1);
         service.addClient(random.nextInt(83) + 16,
                 UUID.randomUUID().toString().replaceAll("-", "") + "@" +
                         UUID.randomUUID().toString().replaceAll("-", "") + ".com",
@@ -97,7 +98,7 @@ public class ClientServiceTest {
 
     private Client getRandomClient() {
         int maybePhoneNumber = random.nextInt();
-        int phoneNumber = maybePhoneNumber > 0 ?  maybePhoneNumber : (maybePhoneNumber * -1) ;
+        int phoneNumber = maybePhoneNumber > 0 ? maybePhoneNumber : (maybePhoneNumber * -1);
         return new Client(random.nextInt(83) + 16,
                 UUID.randomUUID().toString().replaceAll("-", "") + "@" +
                         UUID.randomUUID().toString().replaceAll("-", "") + ".com",
@@ -108,7 +109,7 @@ public class ClientServiceTest {
 
     private Employee getRandomEmployee() {
         int maybePhoneNumber = random.nextInt();
-        int phoneNumber = maybePhoneNumber > 0 ?  maybePhoneNumber : (maybePhoneNumber * -1) ;
+        int phoneNumber = maybePhoneNumber > 0 ? maybePhoneNumber : (maybePhoneNumber * -1);
         return new Employee(random.nextInt(83) + 16,
                 UUID.randomUUID().toString().replaceAll("-", "") + "@" +
                         UUID.randomUUID().toString().replaceAll("-", "") + ".com",
@@ -244,7 +245,7 @@ public class ClientServiceTest {
         }
         Client[] clients = new Client[service.getStorageSize()];
         for (int i = 0; i < service.getStorageSize(); i++) {
-            clients[i] = (Client)service.getPeople().get(i);
+            clients[i] = (Client) service.getPeople().get(i);
         }
         Arrays.sort(clients);
         for (Client client : clients) {
@@ -280,7 +281,7 @@ public class ClientServiceTest {
         }
         Employee[] staff = new Employee[service.getStorageSize()];
         for (int i = 0; i < service.getStorageSize(); i++) {
-            staff[i] = (Employee)service.getPeople().get(i);
+            staff[i] = (Employee) service.getPeople().get(i);
         }
         try {
             Arrays.sort(staff);
