@@ -53,6 +53,11 @@ public class Client extends Person implements Comparable<Client> {
     }
 
     @Override
+    public PersonTypes getType() {
+        return PersonTypes.CLIENT;
+    }
+
+    @Override
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;

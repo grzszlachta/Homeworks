@@ -29,6 +29,10 @@ public class ClientServiceTest {
             counter = counter + 1;
             Assert.assertEquals(counter, service.getStorageSize());
         }
+        service.addEmployee(getRandomEmployee());
+        for (Person p : service.getPeople()) {
+            System.out.println("p = " + p.getType());
+        }
     }
 
     @Test
