@@ -6,7 +6,21 @@ import org.junit.Test;
 public class CleanupArrayFromOddTest {
 
     private static int[] cleanupArray(int[] input) {
-        return input;
+        int counter = 0;
+        for (int i = 0; i < input.length; i++) {
+            if (input[i] % 2 == 1) {
+                input[i] = Integer.MIN_VALUE;
+                counter++;
+            }
+        }
+        int[] result = new int[input.length - counter];
+        counter = 0;
+        for (int i = 0; i < input.length; i++) {
+            if (input[i] != Integer.MIN_VALUE) {
+                result[counter++] = input[i];
+            }
+        }
+        return result;
     }
 
     @Test
