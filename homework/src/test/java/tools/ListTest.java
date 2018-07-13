@@ -18,7 +18,13 @@ public class ListTest {
     }
 
     private List<String> multiply(List<String> listWords, int multiplier) {
-        return listWords;
+        List<String> result = new ArrayList<>();
+        for (String word : listWords) {
+            for (int i = 0; i<multiplier; i++) {
+                result.add(word);
+            }
+        }
+        return result;
     }
 
     @Test
@@ -30,13 +36,20 @@ public class ListTest {
     }
 
     private List<String> cleanup(List<String> input) {
-        return input;
+        List<String> result = new ArrayList<>();
+        for (String word : input) {
+            if (!result.contains(word)) {
+                result.add(word);
+            }
+        }
+        return result;
     }
 
     @Test
     public void testDeleteFromList() {
         List<String> listWords = Arrays.asList("Imagine all the people living life in peace, you".split(" "));
-        Iterator<String> iterator = listWords.iterator();
+        List<String> workingIteratorList = new ArrayList<>(listWords);
+        Iterator<String> iterator = workingIteratorList.iterator();
         int counter = 0;
         while (iterator.hasNext()) {
             iterator.next();
@@ -46,6 +59,6 @@ public class ListTest {
             counter++;
         }
         List<String> expected = Arrays.asList("Imagine", "the", "living", "in", "you");
-        Assert.assertEquals(expected, listWords);
+        Assert.assertEquals(expected, workingIteratorList);
     }
 }
