@@ -24,7 +24,14 @@ public class SetTest {
         List<String> expected = Arrays.asList("all", "living", "in", "peace,", "people", "life", "the", "Imagine", "you");
         // put elements of input to set result
         Set<String> result = new HashSet<>();
-        Assert.assertArrayEquals(expected.toArray(), result.toArray());
+
+        Assert.assertEquals(expected.size(), result.size());
+        for (String expect : expected) {
+            Assert.assertTrue(result.contains(expect));
+        }
+        for (String resulted : result) {
+            Assert.assertTrue(expected.contains(resulted));
+        }
     }
 
     @Test
