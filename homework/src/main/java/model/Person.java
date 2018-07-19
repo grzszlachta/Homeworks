@@ -96,4 +96,6 @@ public abstract class Person implements Discountable {
                 ", id=" + id +
                 '}';
     }
+
+    public abstract PersonTypes getType();
 }

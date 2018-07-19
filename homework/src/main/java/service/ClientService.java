@@ -4,13 +4,12 @@ import model.Client;
 import model.Employee;
 import model.Person;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class ClientService implements Comparator<Person> {
 
     private List<Person> people = new ArrayList<>();
+    private Map<String, Person> mapOfEmails = new HashMap<>();
     private int counter = 0;
 
     public void addClient(int age, String email, String name, String surname, String phone) {
@@ -42,18 +41,14 @@ public class ClientService implements Comparator<Person> {
     }
 
     public Person findPersonByEmail(String email) {
-        Person result = null;
-        for (Person person : people) {
-            if (person != null && email.equals(person.getEmail())) {
-                result = person;
-                break;
-            }
-        }
-        return result;
+        return mapOfEmails.get(email);
     }
 
     private void createPerson(Person person) {
         people.add(person);
+        if (person.getEmail() != null && !mapOfEmails.containsKey(person.getEmail())) {
+            mapOfEmails.put(person.getEmail(), person);
+        }
     }
 
     public Person updatePerson(String email, int age, String name, String surname, String phone) {
@@ -69,6 +64,9 @@ public class ClientService implements Comparator<Person> {
 
     public Client getClient(String email) throws IllegalStateException {
         Person personByEmail = findPersonByEmail(email);
+        if (personByEmail == null) {
+            return null;
+        }
         if (personByEmail instanceof Client) {
             return (Client) personByEmail;
         }
