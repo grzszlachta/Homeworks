@@ -15,11 +15,9 @@ public class FileTest {
     @Test
     public void testReadFileByScanner() {
 
-//        File fileInput = new File("C:\\Users\\IT Academy\\andrii\\homeworks\\homework\\src\\test\\java\\tools\\test.txt");
-        File fileInput = new File("C:\\Users\\IT Academy\\andrii\\homeworks\\homework\\src\\main\\java\\docs\\Mickiewicz.txt");
+        File fileInput = new File("src\\main\\java\\docs\\Mickiewicz.txt");
         Scanner in = null;
         try {
-//            System.out.println("file is directory: " + fileInput.isDirectory());
             in = new Scanner(fileInput);
 //            in.useDelimiter("\n");
             while (in.hasNext()) {
@@ -36,7 +34,7 @@ public class FileTest {
     @Test
     public void testReadFileByScannerWithResources() {
 
-        File fileInput = new File("C:\\Users\\IT Academy\\andrii\\homeworks\\homework\\src\\main\\java\\docs\\Mickiewicz.txt");
+        File fileInput = new File("src\\main\\java\\docs\\Mickiewicz.txt");
         try (Scanner in = new Scanner(fileInput)) {
 //            System.out.println("file is directory: " + fileInput.isDirectory());
             while (in.hasNext()) {
@@ -50,7 +48,7 @@ public class FileTest {
 
     @Test
     public void testReadFileByLines() {
-        Path path = Paths.get("C:\\Users\\IT Academy\\andrii\\homeworks\\homework\\src\\main\\java\\docs\\Mickiewicz.txt");
+        Path path = Paths.get("src\\main\\java\\docs\\Mickiewicz.txt");
         try {
             List<String> lines = Files.readAllLines(path);
             for (String line : lines) {
@@ -64,7 +62,7 @@ public class FileTest {
 
     @Test
     public void testCountEmptyLines() {
-        Path path = Paths.get("C:\\Users\\IT Academy\\andrii\\homeworks\\homework\\src\\main\\java\\docs\\Mickiewicz.txt");
+        Path path = Paths.get("src\\main\\java\\docs\\Mickiewicz.txt");
         int counter = 0;
         int counterAll = 0;
         try {
@@ -85,7 +83,7 @@ public class FileTest {
 
     @Test
     public void testReadFileByScannerDictionary() {
-        File fileInput = new File("C:\\Users\\IT Academy\\andrii\\homeworks\\homework\\src\\main\\java\\docs\\Mickiewicz.txt");
+        File fileInput = new File("src\\main\\java\\docs\\Mickiewicz.txt");
         Scanner in = null;
         Map<String, Integer> dict = new HashMap<>();
         try {
@@ -118,8 +116,5 @@ public class FileTest {
             }
         });
         System.out.println("most frequent word is [" + entries.get(0).getKey() + "]");
-
-
     }
-
 }
