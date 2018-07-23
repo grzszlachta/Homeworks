@@ -2,8 +2,7 @@ package tools;
 
 import org.junit.Test;
 
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.*;
 
 public class QueueTest {
 
@@ -20,6 +19,22 @@ public class QueueTest {
             System.out.println("words = " + words);
         }
 
+        System.out.println("__________\nwords = " + words);
+    }
+
+    @Test
+    public void testDeque() {
+        Deque<String> words = new LinkedList<>();
+        for (int i = 0; i < 10; i++) {
+            words.addFirst(UUID.randomUUID().toString());
+        }
+        System.out.println("words = " + words);
+
+        for (int i = 0; i < 10; i++) {
+            System.out.println("i = " + i);
+            words.removeLast();
+            System.out.println("words = " + words);
+        }
         System.out.println("__________\nwords = " + words);
     }
 }

@@ -15,6 +15,7 @@ public class SetTest {
             input.add("B");
         }
         System.out.println("input = " + input);
+        Assert.assertEquals(2, input.size());
     }
 
     @Test
@@ -23,7 +24,7 @@ public class SetTest {
                 "living", "living", "life", "life", "in", "in", "peace,", "peace,", "you", "you");
         List<String> expected = Arrays.asList("all", "living", "in", "peace,", "people", "life", "the", "Imagine", "you");
         // put elements of input to set result
-        Set<String> result = new HashSet<>();
+        Set<String> result = new HashSet<>(input);
 
         Assert.assertEquals(expected.size(), result.size());
         for (String expect : expected) {
@@ -38,7 +39,7 @@ public class SetTest {
     public void testOrderedSet() {
         List<String> input = Arrays.asList("all", "living", "in", "peace,", "people", "life", "the", "Imagine", "you");
         // put input collection to result set in natural order
-        Set<String> result = null;
+        Set<String> result = new TreeSet<>(input);
         Collections.sort(input);
         Assert.assertArrayEquals(input.toArray(), result.toArray());
     }
@@ -47,7 +48,8 @@ public class SetTest {
     public void testReverseOrderedSet() {
         List<String> input = Arrays.asList("all", "living", "in", "peace,", "people", "life", "the", "Imagine", "you");
         // put input collection to result set in reverse natural order
-        Set<String> result = new TreeSet<>();
+        Set<String> result = new TreeSet<>(Collections.reverseOrder());
+        result.addAll(input);
         input.sort(Collections.reverseOrder());
         Assert.assertArrayEquals(input.toArray(), result.toArray());
     }
