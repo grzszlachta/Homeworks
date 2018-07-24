@@ -3,6 +3,7 @@ package tools;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -109,12 +110,57 @@ public class FileTest {
             }
        }*/
         List<Map.Entry<String, Integer>> entries = new ArrayList<>(dict.entrySet());
-        Collections.sort(entries, new Comparator<Map.Entry<String, Integer>>() {
+        /*Comparator<Map.Entry<String, Integer>> compMaps = new Comparator<Map.Entry<String, Integer>>() {
             @Override
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
                 return o2.getValue() - o1.getValue();
             }
-        });
+        };*/
+        /*MapsComparator comparator = new MapsComparator();
+        Collections.sort(entries, comparator);*/
+        Collections.sort(entries,
+                (o1, o2) -> o2.getValue() - o1.getValue()
+        );
         System.out.println("most frequent word is [" + entries.get(0).getKey() + "]");
     }
+
+    @Test
+    public void testListFiles() {
+        File fileInput = new File("src\\main\\java");
+        final String ext = ".txt";
+        System.out.println(Arrays.asList(fileInput.listFiles(
+                pathname -> pathname.getName().endsWith(ext)))
+        );
+        System.out.println(Arrays.asList(fileInput.listFiles(
+                path -> true
+        )));
+    }
+
+    @Test
+    public void testTreeFiles() {
+        File fileInput = new File("src\\main\\java");
+        final String ext = ".java";
+        System.out.println(Arrays.asList(fileInput.listFiles(new FileFilter() {
+            @Override
+            public boolean accept(final File pathname) {
+                if (pathname.isFile()) {
+                    if (pathname.getName().endsWith(ext)) {
+                        System.out.println(pathname);
+                    }
+                } else {
+                    System.out.println("Directory is " + pathname);
+                    File[] files = pathname.listFiles();
+//                    System.out.println(Arrays.asList(files));
+                    /*for (File f : files) {
+                        System.out.println(f);
+                    }*/
+                    List<File> listOfFiles = Arrays.asList(files);
+                    listOfFiles.forEach(System.out::println);
+                    System.out.println();
+                }
+                return false;
+            }
+        })));
+    }
+
 }
