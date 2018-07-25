@@ -163,4 +163,27 @@ public class FileTest {
         })));
     }
 
+    @Test
+    public void testFullTree() {
+        File fileInput = new File("src");
+        fileInput.listFiles(new FileFilter() {
+            @Override
+            public boolean accept(final File pathname) {
+                printDirectoryContain(pathname);
+                return false;
+            }
+        });
+    }
+
+    private void printDirectoryContain(File pathname) {
+        if (pathname.isFile()) {
+            System.out.println(pathname + "  ");
+        } else {
+            System.out.println("Directory is " + pathname + "  ");
+            List<File> listOfFiles = Arrays.asList(pathname.listFiles());
+            listOfFiles.forEach(file -> printDirectoryContain(file));
+            System.out.println();
+        }
+    }
+
 }
