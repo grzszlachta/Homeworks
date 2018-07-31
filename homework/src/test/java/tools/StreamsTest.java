@@ -18,6 +18,7 @@ public class StreamsTest {
         Supplier<Integer> integerSupplier = () -> new Random().nextInt(100);
         Stream
                 .generate(integerSupplier)
+                .limit(10)
                 .forEach(System.out::println);
     }
 
@@ -27,6 +28,7 @@ public class StreamsTest {
                 .generate(() -> generateRandomString(new Random(), 9))
                 .peek(System.out::println)
                 .limit(25)
+                .sorted(Collections.reverseOrder())
                 .collect(Collectors.toList());
         List<String> toSort = new ArrayList<>(listOfRandomStrings);
         Collections.sort(toSort, Collections.reverseOrder());
@@ -41,6 +43,9 @@ public class StreamsTest {
                 .generate(() -> generateRandomString(new Random(), 9))
                 .peek(System.out::println)
                 .limit(25)
+                .filter(o ->
+                        o.substring(0,1)
+                            .equals(o.substring(0,1).toUpperCase()))
                 .collect(Collectors.toList());
         listOfRandomStrings.forEach(
                 o -> Assert.assertTrue(
@@ -57,6 +62,7 @@ public class StreamsTest {
                 .generate(() -> generateRandomString(new Random(), 9))
                 .peek(System.out::println)
                 .limit(capacity)
+                .map(o -> o.substring(0,1).toUpperCase() + o.substring(1))
                 .collect(Collectors.toList());
         listOfRandomStrings.forEach(
                 o -> Assert.assertEquals(o + " is not capitalized",
