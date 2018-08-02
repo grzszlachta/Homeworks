@@ -24,4 +24,8 @@ public class StorageMap {
 
     }
 
+    public Set<String> getGoodForStorages(String magazin) {
+        return Collections.emptySet();
+    }
+
 }
