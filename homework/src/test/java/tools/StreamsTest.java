@@ -1,6 +1,7 @@
 package tools;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -18,15 +19,17 @@ public class StreamsTest {
         Supplier<Integer> integerSupplier = () -> new Random().nextInt(100);
         Stream
                 .generate(integerSupplier)
+                .limit(10)
                 .forEach(System.out::println);
     }
 
-    @Test
+    @Ignore("till new year")
     public void testStreamSort() {
         List<String> listOfRandomStrings = Stream
                 .generate(() -> generateRandomString(new Random(), 9))
                 .peek(System.out::println)
                 .limit(25)
+                .sorted(Collections.reverseOrder())
                 .collect(Collectors.toList());
         List<String> toSort = new ArrayList<>(listOfRandomStrings);
         Collections.sort(toSort, Collections.reverseOrder());
@@ -41,6 +44,10 @@ public class StreamsTest {
                 .generate(() -> generateRandomString(new Random(), 9))
                 .peek(System.out::println)
                 .limit(25)
+                .filter(w -> Character.isUpperCase(w.charAt(0)))
+                /*.filter(o ->
+                        o.substring(0,1)
+                            .equals(o.substring(0,1).toUpperCase()))*/
                 .collect(Collectors.toList());
         listOfRandomStrings.forEach(
                 o -> Assert.assertTrue(
@@ -57,6 +64,7 @@ public class StreamsTest {
                 .generate(() -> generateRandomString(new Random(), 9))
                 .peek(System.out::println)
                 .limit(capacity)
+                .map(o -> o.substring(0,1).toUpperCase() + o.substring(1))
                 .collect(Collectors.toList());
         listOfRandomStrings.forEach(
                 o -> Assert.assertEquals(o + " is not capitalized",
