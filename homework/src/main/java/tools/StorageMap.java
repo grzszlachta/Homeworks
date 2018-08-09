@@ -20,12 +20,28 @@ public class StorageMap {
         return records == null ? Collections.emptySet() : records;
     }
 
-    public void remove(String good, String storage) {
+    public void remove(String good, String magazin) {
+        if (good == null || magazin == null || good.isEmpty() || magazin.isEmpty()) {
+            throw new IllegalStateException();
+        }
 
+        Set<String> records = storage.get(good);
+        if (records == null) {
+            throw new IllegalStateException();
+        }
+        records.remove(magazin);
+        storage.put(good, records);
     }
 
     public Set<String> getGoodForStorages(String magazin) {
-        return Collections.emptySet();
+        Set<String> result = new TreeSet<>();
+        for (String good : storage.keySet()) {
+            Set<String> records = storage.get(good);
+            if (records.contains(magazin)) {
+                result.add(good);
+            }
+        }
+        return result;
     }
 
 }
