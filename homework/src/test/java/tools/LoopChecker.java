@@ -7,6 +7,8 @@ import java.util.Map;
 
 public class LoopChecker {
 
+
+
     public static boolean hasLoopHashes(LinkedList<Object> input) {
         Iterator<Object> iterator = input.iterator();
         Map<Object, Integer> keyStorage = new HashMap<>();
