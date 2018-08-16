@@ -6,7 +6,7 @@
 Book {name, author, id}  
 DVD {name, author, id, type}  
 Member {id, name, surname, PESEL, borrowedItems}  
-Library {find(borrowedItem | borrowedItem.*), add(borrowedItem), delete(borrowedItem), countItemsInLibrary(), borrowItem(borrowedItem | borrowedItem.*, member | member.uniqueID), returnItem(borrowedItem | borrowedItem.*, member | member.uniqueID)  
+Library {find(borrowedItem | borrowedItem.VALUE_FIELD ), add(borrowedItem), delete(borrowedItem), countItemsInLibrary(), borrowItem(borrowedItem | borrowedItem.VALUE_FIELD, member | member.uniqueID), returnItem(borrowedItem | borrowedItem.VALUE_FIELD, member | member.uniqueID)  
 
 Write tests to possible scenarios of Library usage.  
 
