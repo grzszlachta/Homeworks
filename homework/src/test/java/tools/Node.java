@@ -7,4 +7,9 @@ public class Node {
     public Node(int value) {
         data = value;
     }
+
+    @Override
+    public String toString() {
+        return "" + data;
+    }
 }
